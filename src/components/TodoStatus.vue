@@ -2,12 +2,12 @@
   <div>
     <ul class="row justify-content-center my-3">
       <li>
-        <button @click="changeTab" :class="{ active: completed }">
+        <button @click="changeCompleted" :class="{ active: completed }">
           Completed
         </button>
       </li>
       <li>
-        <button @click="changeTab" :class="{ active: !completed }">
+        <button @click="changeCompleted" :class="{ active: !completed }">
           Not Completed
         </button>
       </li>
@@ -15,16 +15,19 @@
   </div>
 </template>
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { useStore } from "vuex";
+import { computed } from "vue";
 export default {
-  computed: {
-    ...mapGetters(["completed"]),
-  },
-  methods: {
-    ...mapActions(["changeCompleted"]),
-    changeTab() {
-      this.changeCompleted();
-    },
+  setup() {
+    const store = useStore();
+    const changeCompleted = () => {
+      store.dispatch("changeCompleted");
+    };
+    const completed = computed(() => store.getters.completed);
+    return {
+      changeCompleted,
+      completed,
+    };
   },
 };
 </script>

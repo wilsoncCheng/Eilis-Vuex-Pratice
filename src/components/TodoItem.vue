@@ -7,16 +7,16 @@
         class="mr-2 row justify-content-between align-items-center col"
       >
         <input
-          v-bind:value="todoText"
+          v-model="todoText"
           @change="todoTextChange"
           type="text"
           class="col-7 form-control"
         />
         <div>
           <input
-            :checked="completed"
+            v-model="completed"
             class="mr-1"
-            @change="onCompleted"
+            @click="onCompleted"
             type="checkbox"
           />
           <label class>Completed</label>
@@ -35,37 +35,53 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { useStore } from "vuex";
+import { ref } from "vue";
 export default {
   props: {
     todo: {},
   },
-  data() {
-    return {
-      todoText: "",
-      editing: false,
-      completed: false,
+  setup() {
+    const store = useStore();
+    const todoText = ref("");
+    const editing = ref(false);
+    const completed = ref(false);
+    completed.value = store.state.completed;
+    const onCompleted = () => {
+      completed.value = !completed.value;
     };
-  },
-  methods: {
-    ...mapActions(["deleteTodo", "updateTodo", "changeCompleted"]),
-    onCompleted() {
-      this.completed = this.completed == true ? false : true;
-    },
-    todoTextChange(e) {
-      this.todoText = e.target.value;
-    },
-    updateTodoI(todo) {
-      this.editing = this.editing == true ? false : true;
-      if (this.editing) {
-        this.todoText = todo.title;
-        this.updateTodo(todo);
+    const updateTodoI = (todo) => {
+      editing.value = !editing.value;
+      if (editing.value) {
+        todoText.value = todo.title;
+        updateTodo(todo);
       } else {
-        todo.title = this.todoText;
-        todo.complete = this.completed;
-        this.changeCompleted();
+        todo.title = todoText.value;
+        todo.complete = completed.value;
       }
-    },
+    };
+    const deleteTodo = (id) => {
+      store.dispatch("deleteTodo", id);
+    };
+
+    const updateTodo = (todo) => {
+      store.dispatch("updateTodo", todo);
+    };
+
+    const changeCompleted = () => {
+      store.dispatch("changeCompleted");
+    };
+    return {
+      onCompleted,
+      updateTodoI,
+      todoText,
+      editing,
+      completed,
+      deleteTodo,
+      updateTodoI,
+      updateTodo,
+      changeCompleted,
+    };
   },
 };
 </script>

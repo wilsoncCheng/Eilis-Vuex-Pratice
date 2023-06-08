@@ -4,28 +4,26 @@ const store = createStore({
   state() {
     return {
       completed: true,
-      ttodos: [],
       todos: [
         {
           id: 1,
-          title: "One",
+          title: "假資料一",
           complete: true,
         },
         {
           id: 2,
-          title: "Three",
+          title: "假資料二",
           complete: true,
         },
         {
           id: 3,
-          title: "Four",
+          title: "假資料三",
           complete: false,
         },
       ],
     };
   },
   getters: {
-    allTTodos: (state) => state.ttodos,
     allTodos: (state) => state.todos,
     completed: (state) => state.completed,
   },
@@ -46,11 +44,9 @@ const store = createStore({
   mutations: {
     add_todo(state, todo) {
       state.todos.push(todo);
-      state.ttodos = state.todos;
     },
     delete_todo(state, id) {
       state.todos = state.todos.filter((todo) => todo.id !== id);
-      state.ttodos = state.todos;
     },
     update_todo(state, todo) {
       const index = state.todos.findIndex((t) => t.id === todo.id);
@@ -59,9 +55,7 @@ const store = createStore({
       }
     },
     change_complete(state) {
-      state.ttodos = state.todos;
       state.completed = !state.completed;
-      state.ttodos = state.ttodos.filter((t) => t.complete === state.completed);
     },
   },
   modules: {},
