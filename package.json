@@ -7,7 +7,6 @@
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "buildCss": "tailwindcss -i tailwind.css -o style.css",
         "deploy": "vite build && gh-pages -d dist"
     },
     "dependencies": {
