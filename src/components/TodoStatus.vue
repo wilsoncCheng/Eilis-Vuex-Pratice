@@ -1,19 +1,34 @@
 <template>
   <div>
-    <ul class="row justify-content-center my-3">
+    <ul class="flex justify-center my-3">
       <li>
-        <button @click="changeCompleted" :class="{ active: completed }">
+        <button
+          @click="changeCompleted"
+          :class="{
+            'bg-blue-500 ': completed,
+            'bg-gray-200': !completed,
+          }"
+          class="px-4 py-2 rounded"
+        >
           Completed
         </button>
       </li>
       <li>
-        <button @click="changeCompleted" :class="{ active: !completed }">
+        <button
+          @click="changeCompleted"
+          :class="{
+            'bg-blue-500': !completed,
+            'bg-gray-200': completed,
+          }"
+          class="px-4 py-2 rounded"
+        >
           Not Completed
         </button>
       </li>
     </ul>
   </div>
 </template>
+
 <script>
 import { useStore } from "vuex";
 import { computed } from "vue";

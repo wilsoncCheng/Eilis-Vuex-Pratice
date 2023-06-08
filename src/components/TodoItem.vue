@@ -1,32 +1,36 @@
 <template>
   <div>
-    <div class="row my-3 justify-content-between align-items-center">
-      <h3 v-if="!editing">{{ todo.title }}</h3>
-      <div
-        v-else
-        class="mr-2 row justify-content-between align-items-center col"
-      >
+    <div class="flex my-3 justify-between items-center">
+      <h3 v-if="!editing" class="text-lg">{{ todo.title }}</h3>
+      <div v-else class="flex items-center col">
         <input
           v-model="todoText"
           @change="todoTextChange"
           type="text"
-          class="col-7 form-control"
+          class="col-span-7 px-2 py-1 border rounded"
         />
-        <div>
+        <div class="flex items-center ml-2">
           <input
             v-model="completed"
-            class="mr-1"
             @click="onCompleted"
             type="checkbox"
+            class="mr-1"
+            id="Completed"
           />
-          <label class>Completed</label>
+          <label class="text-sm" for="Completed">Completed</label>
         </div>
       </div>
-      <div class="flex row align-items-center">
-        <button @click="updateTodoI(todo)" class="btn btn-primary mx-2">
+      <div class="flex items-center">
+        <button
+          @click="updateTodoI(todo)"
+          class="px-4 py-2 text-white bg-blue-500 rounded mx-2"
+        >
           {{ editing ? "Update" : "Edit" }}
         </button>
-        <button @click="deleteTodo(todo.id)" class="btn btn-danger">
+        <button
+          @click="deleteTodo(todo.id)"
+          class="px-4 py-2 text-white bg-red-500 rounded"
+        >
           Delete
         </button>
       </div>

@@ -1,11 +1,22 @@
 <template>
   <div>
-    <div class="row">
-      <input v-model="todoText" class="col form-control mr-2" type="text" />
-      <button @click="addTodoI" class="btn btn-primary">Add</button>
+    <div class="flex header">
+      <input
+        v-model="todoText"
+        class="w-full mr-2 px-2 py-1 border rounded"
+        type="text"
+        placeholder="請輸入您的代辦事項"
+      />
+      <button
+        @click="addTodoI"
+        class="px-4 py-2 text-white bg-blue-500 rounded"
+      >
+        Add
+      </button>
     </div>
   </div>
 </template>
+
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
@@ -16,7 +27,9 @@ export default {
     const store = useStore();
     const addTodoI = () => {
       if (todoText.value.length == 0) return;
-      console.log(todoText.value.trim().length);
+      if (store.state.completed) {
+        store.dispatch("changeCompleted");
+      }
       store.dispatch("addTodo", {
         id: v1(),
         title: todoText.value,
@@ -33,7 +46,11 @@ export default {
 </script>
 
 <style scoped>
-.read-the-docs {
-  color: #888;
+.header {
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
 }
 </style>

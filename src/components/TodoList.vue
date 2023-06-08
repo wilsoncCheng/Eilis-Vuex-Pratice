@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div v-for="todo in allTodos" :key="todo.id">
-      <TodoItem :todo="todo" />
-    </div>
+  <div class="form_body">
+    <TodoItem v-for="todo in allTodos" :key="todo.id" :todo="todo"> </TodoItem>
   </div>
 </template>
 <script>
@@ -26,3 +24,10 @@ export default {
   },
 };
 </script>
+<style>
+.form_body {
+  background-color: #eee;
+  border-radius: 6px;
+  padding: 20px;
+}
+</style>
