@@ -28,9 +28,9 @@ export default {
     const addTodoI = () => {
       if (todoText.value.length == 0) return;
       if (store.state.completed) {
-        store.dispatch("changeCompleted");
+        store.commit("change_complete");
       }
-      store.dispatch("addTodo", {
+      store.commit("add_todo", {
         id: v1(),
         title: todoText.value,
         complete: false,

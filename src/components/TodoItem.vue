@@ -65,15 +65,15 @@ export default {
       }
     };
     const deleteTodo = (id) => {
-      store.dispatch("deleteTodo", id);
+      store.commit("delete_todo", id);
     };
 
     const updateTodo = (todo) => {
-      store.dispatch("updateTodo", todo);
+      store.commit("update_todo", todo);
     };
 
     const changeCompleted = () => {
-      store.dispatch("changeCompleted");
+      store.commit("change_complete");
     };
     return {
       onCompleted,

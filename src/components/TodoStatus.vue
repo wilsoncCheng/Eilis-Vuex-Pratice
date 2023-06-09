@@ -36,7 +36,7 @@ export default {
   setup() {
     const store = useStore();
     const changeCompleted = () => {
-      store.dispatch("changeCompleted");
+      store.commit("change_complete");
     };
     const completed = computed(() => store.getters.completed);
     return {

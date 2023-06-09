@@ -27,20 +27,6 @@ const store = createStore({
     allTodos: (state) => state.todos,
     completed: (state) => state.completed,
   },
-  actions: {
-    changeCompleted({ commit }) {
-      commit("change_complete");
-    },
-    addTodo({ commit }, todo) {
-      commit("add_todo", todo);
-    },
-    deleteTodo({ commit }, id) {
-      commit("delete_todo", id);
-    },
-    updateTodo({ commit }, todo) {
-      commit("update_todo", todo);
-    },
-  },
   mutations: {
     add_todo(state, todo) {
       state.todos.push(todo);
